@@ -35,7 +35,7 @@ def main():
     clock = pygame.time.Clock()
     running = True
 
-    # Make sure a joystick is connected
+    # Make sure a controller with a joystick is connected
     if pygame.joystick.get_count() == 0:
         print("No joystick connected.")
         return
@@ -56,14 +56,14 @@ def main():
                     press_key(button_to_key[event.button])
                     print(f"Button {event.button} pressed. Mapped to {button_to_key[event.button]}")
 
-        # Get the state of the joystick axes
+        # Get the values of the joystick axes
         if joystick.get_numaxes() >= 4:
-            # Right joystick usually corresponds to axes 2 (horizontal) and 3 (vertical)
+            # Right joystick is usually axes 2 (horizontal) and 3 (vertical)
             x_axis = joystick.get_axis(2)
             y_axis = joystick.get_axis(3)
             move_mouse(int(x_axis * sensitivity), int(y_axis * sensitivity))
 
-        # Cap the frame rate
+        # Cap the frame rate might make a settings file to make editing this easier
         clock.tick(30)
 
     pygame.quit()
