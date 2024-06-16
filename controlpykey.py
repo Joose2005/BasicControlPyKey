@@ -1,6 +1,7 @@
 import pygame
 from pynput.keyboard import Controller as KeyboardController, Key
 from pynput.mouse import Controller as MouseController
+import json
 
 # Initialize Pygame and joystick
 pygame.init()
@@ -9,6 +10,9 @@ pygame.joystick.init()
 # Create controllers
 keyboard = KeyboardController()
 mouse = MouseController()
+
+button_to_key = load_button_to_key_mapping('button_to_key_mapping.json')
+
 
 # Dictionary to map joystick buttons to keyboard keys
 button_to_key = {
