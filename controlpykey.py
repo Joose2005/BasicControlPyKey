@@ -11,7 +11,7 @@ pygame.joystick.init()
 keyboard = KeyboardController()
 mouse = MouseController()
 
-button_to_key = load_button_to_key_mapping('button_to_key_mapping.json')
+button_to_key = load_button_to_key_mapping('controlpykey.json')
 
 
 # Dictionary to map joystick buttons to keyboard keys
