@@ -11,17 +11,16 @@ pygame.joystick.init()
 keyboard = KeyboardController()
 mouse = MouseController()
 
+# The load function. Just a test before I start writing dictionaries for every controller I own. 
+def load_button_to_key_mapping(filename):
+    try:
+        with open(filename, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"Mapping file {filename} not found. Using default mappings.")
+        return {}
+
 button_to_key = load_button_to_key_mapping('controlpykey.json')
-
-
-# Dictionary to map joystick buttons to keyboard keys
-button_to_key = {
-    0: Key.space,  # Example: A button to Space key
-    1: Key.enter,  # Example: B button to Enter key
-    2: Key.esc,    # Example: X button to Escape key
-    3: Key.e,    # Example: Y button to Tab key
-    # Make some sort of dictionary file so I'm not doing this in code.
-}
 
 def adjust_sensitivity(value, base_sensitivity=10, max_sensitivity=75):
     # Dynamic sensitivity
