@@ -15,12 +15,13 @@ button_to_key = {
     0: Key.space,  # Example: A button to Space key
     1: Key.enter,  # Example: B button to Enter key
     2: Key.esc,    # Example: X button to Escape key
-    3: Key.tab,    # Example: Y button to Tab key
-    # Add more button mappings here
+    3: Key.e,    # Example: Y button to Tab key
+    # Make some sort of dictionary file so I'm not doing this in code.
 }
 
-# Sensitivity for joystick to mouse movement
-sensitivity = 10
+def adjust_sensitivity(value, base_sensitivity=10, max_sensitivity=75):
+    # Dynamic sensitivity
+    return base_sensitivity + (max_sensitivity - base_sensitivity) * abs(value)
 
 def press_key(key):
     keyboard.press(key)
@@ -56,12 +57,17 @@ def main():
                     press_key(button_to_key[event.button])
                     print(f"Button {event.button} pressed. Mapped to {button_to_key[event.button]}")
 
-        # Get the values of the joystick axes
+        # Get the value of the joystick axes
         if joystick.get_numaxes() >= 4:
             # Right joystick is usually axes 2 (horizontal) and 3 (vertical)
             x_axis = joystick.get_axis(2)
             y_axis = joystick.get_axis(3)
-            move_mouse(int(x_axis * sensitivity), int(y_axis * sensitivity))
+            
+            x_sensitivity = adjust_sensitivity(x_axis)
+            y_sensitivity = adjust_sensitivity(y_axis)
+
+            # Right stick to move mouse might make this toggleable
+            move_mouse(int(x_axis * x_sensitivity), int(y_axis * y_sensitivity))
 
         # Cap the frame rate might make a settings file to make editing this easier
         clock.tick(30)
